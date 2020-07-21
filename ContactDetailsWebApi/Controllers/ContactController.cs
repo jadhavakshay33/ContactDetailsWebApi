@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -79,23 +80,29 @@ namespace ContactDetailsWebApi.Controllers
             return true;
         }
 
-
-        public IHttpActionResult DeleteConact(int id)
+      
+        [Route("Contact/DeleteConact/{ID}")]
+        public bool DeleteConact(int id)
         {
             if (id <= 0)
-                return BadRequest("Not a valid student id");
+                return false;
 
             using (var db = new CallLogDBEntities())
             {
-                var student = db.ContactDetailsTables
+                var Contact = db.ContactDetailsTables
                     .Where(s => s.ID == id)
                     .FirstOrDefault();
-
-                db.Entry(student).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
+                if(Contact==null)
+                {
+                    return false;
+                }
+                else
+                {
+                    db.Entry(Contact).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
             }
-
-            return Ok();
+            return true;
         }
 
     }

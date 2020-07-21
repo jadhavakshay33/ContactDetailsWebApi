@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Http.Cors;
+
 namespace ContactDetailsWebApi
 {
     public static class WebApiConfig
@@ -12,7 +14,9 @@ namespace ContactDetailsWebApi
         {
             config.MapHttpAttributeRoutes();
             config.EnableCors();
-           // config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
+             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
