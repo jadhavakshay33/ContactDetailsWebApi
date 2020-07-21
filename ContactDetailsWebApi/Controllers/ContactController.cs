@@ -7,11 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using ContactDetailsWebApi.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace ContactDetailsWebApi.Controllers
 {
+    [EnableCors("*","*","*")]
     public class ContactController : ApiController
     {
         [HttpGet]
@@ -21,7 +24,7 @@ namespace ContactDetailsWebApi.Controllers
             return Ok();
         }
 
-
+        [HttpGet]
         [Route("Contact/GetAllContactDetails")]
         public IHttpActionResult GetAllContactDetails()
         {
@@ -49,26 +52,51 @@ namespace ContactDetailsWebApi.Controllers
             return Ok(Contacts);
         }
         [HttpPost]
-        public IHttpActionResult PostNewContact(ContactDetailsViewModel contact)
+        [Route("Contact/AddNewContact")]
+ 
+        public bool AddNewContact([FromBody]ContactDetailsViewModel con)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
+           
+
+            if(String.IsNullOrEmpty(con.Name) && String.IsNullOrEmpty(con.Phone) && String.IsNullOrEmpty(con.Email))
+            {
+                return false;
+            }
 
             using (var db = new CallLogDBEntities())
             {
                 db.ContactDetailsTables.Add(new ContactDetailsTable()
                 {
-                    ID = contact.ID,
-                    Name = contact.Name,
-                    Email = contact.Email,
-                    Phone = contact.Phone,
+                    Name = con.Name,
+                    Email = con.Email,
+                    Phone = con.Phone,
                     CreationDate = System.DateTime.Today
                 }); ;
 
                 db.SaveChanges();
             }
 
+            return true;
+        }
+
+
+        public IHttpActionResult DeleteConact(int id)
+        {
+            if (id <= 0)
+                return BadRequest("Not a valid student id");
+
+            using (var db = new CallLogDBEntities())
+            {
+                var student = db.ContactDetailsTables
+                    .Where(s => s.ID == id)
+                    .FirstOrDefault();
+
+                db.Entry(student).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+            }
+
             return Ok();
         }
+
     }
 }
