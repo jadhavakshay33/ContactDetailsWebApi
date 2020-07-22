@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
+using System.Web.WebPages;
 using ContactDetailsWebApi.Models;
 using Microsoft.Ajax.Utilities;
 
@@ -57,9 +58,8 @@ namespace ContactDetailsWebApi.Controllers
  
         public bool AddNewContact([FromBody]ContactDetailsViewModel con)
         {
-           
 
-            if(String.IsNullOrEmpty(con.Name) && String.IsNullOrEmpty(con.Phone) && String.IsNullOrEmpty(con.Email))
+            if(String.IsNullOrEmpty(con.Name) || String.IsNullOrEmpty(con.Phone) || String.IsNullOrEmpty(con.Email))
             {
                 return false;
             }

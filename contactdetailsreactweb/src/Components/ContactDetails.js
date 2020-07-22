@@ -1,7 +1,8 @@
-import React from 'react';
+//import React from 'react';
 import ReactDOM from 'react-dom';
 import './ContactDetails.css';
-class ContactDetailsComponents extends React.Component{
+import React,{Component} from 'react';
+export class ContactDetails extends Component{
     constructor(props){
         super(props);
 
@@ -36,17 +37,18 @@ class ContactDetailsComponents extends React.Component{
 
     render(){
         return(
-            <div>
-            <h2>Contact Details Table</h2>
+            <div className='container'>
+            <h2 className='m-3 d-flex justify-content-center'>Contact Details Table</h2>
             <table class="table" >
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email ID</th>
-                    <th>Phone Number</th>
-                    <th>Creation Date</th>
-                    <th></th>
+              <thead>
+                <tr class="thead-dark">
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email ID</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Creation Date</th>
                 </tr>
+                </thead >
                     {this.state.contactDetails.map(con=>(
                         <tr>
                         <td>{con.ID}</td>
@@ -54,7 +56,6 @@ class ContactDetailsComponents extends React.Component{
                         <td>{con.Email}</td>
                         <td>{con.Phone}</td>
                         <td>{con.CreationDate}</td> 
-                        <td><button onClick={() => this.DeleteContact(con.ID)}>Delete Contact</button></td>
                         </tr>   
                     ))}
             </table>
@@ -62,5 +63,5 @@ class ContactDetailsComponents extends React.Component{
         );
     }
 }
-const element=<ContactDetailsComponents></ContactDetailsComponents>
+const element=<ContactDetails></ContactDetails>
 ReactDOM.render(element,document.getElementById("root"));

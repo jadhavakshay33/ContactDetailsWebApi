@@ -1,7 +1,8 @@
-import React from 'react';
+//import React from 'react';
 import ReactDOM from 'react-dom';
 import './ContactDetails.css';
-class DeleteContactComponents extends React.Component{
+import React,{Component} from 'react';
+export class DeleteContact extends Component{
   constructor(props){
       super(props);
       this.state={
@@ -37,17 +38,17 @@ var ID=document.getElementById('ID').value
 
 
 render(){
-  return <div>
-      <h1>Add New Contact...</h1>
+  return <div className='container'>
+      <h1 className='m-3 d-flex justify-content-center'>Delete Contact...</h1>
   <p>
-      <label>Enter Id:<input type="Number" id="ID"></input></label>
+      <label>Enter Id:</label> <input type="Number" id="ID" class="form-control"></input>
   </p>
-  <td><button onClick={() => this.DeleteContact()}>Delete Contact</button></td>
+  <td><button onClick={() => this.DeleteContact()} class="btn btn-primary btn-lg">Delete Contact</button></td>
   <p>{this.state.message}</p>
   </div>
   
 }
 
 }
-const element=<DeleteContactComponents></DeleteContactComponents>
+const element=<DeleteContact></DeleteContact>
 ReactDOM.render(element,document.getElementById("root"));

@@ -1,7 +1,9 @@
-import React from 'react';
+//import React from 'react';
 import ReactDOM from 'react-dom';
 import './ContactDetails.css';
-class AddContactComponents extends React.Component{
+import React,{Component} from 'react';
+export class AddNewContact extends Component
+{
     constructor(props){
         super(props);
 
@@ -40,23 +42,24 @@ class AddContactComponents extends React.Component{
     }
 
     render(){
-        return <div>
-            <h1>Add New Contact...</h1>
+        return( 
+        <div class="container">
+            <h1 className='m-3 d-flex justify-content-center'>Add New Contact...</h1>
         <p>
-            <label>Enter Name:<input type="text" ref="Name" id="Name"></input></label>
+            <label>Enter Name:</label><input type="text" class="form-control"  id="Name"></input>
         </p>
         <p>
-        <label>Enter Email ID:<input type="text" ref="Email" id="Email"></input></label>
+        <label>Enter Email ID:</label><input type="text" class="form-control"  id="Email"></input>
        </p>
         <p>
-        <label>Enter Phone Number:<input type="text" ref="Phone" id="Phone"></input></label>
+        <label>Enter Phone Number:</label><input type="tel" class="form-control" id="Phone"  pattern="[0-9]" required></input>
         </p>
-        <button onClick={e => this.SaveNewContact()}>Save Contact</button>
+        <button onClick={e => this.SaveNewContact()} class="btn btn-primary btn-lg">Save Contact</button>
          <p>{this.state.message}</p>
         </div>
-        
+        )
     }
 }
 
-const element=<AddContactComponents></AddContactComponents>
+const element=<AddNewContact></AddNewContact>
 ReactDOM.render(element,document.getElementById("root"));
