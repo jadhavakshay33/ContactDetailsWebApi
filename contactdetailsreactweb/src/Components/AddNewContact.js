@@ -49,10 +49,10 @@ export class AddNewContact extends Component
             <label>Enter Name:</label><input type="text" class="form-control"  id="Name"></input>
         </p>
         <p>
-        <label>Enter Email ID:</label><input type="text" class="form-control"  id="Email"></input>
+        <label>Enter Email ID:</label><input type="email" class="form-control"  id="Email"></input>
        </p>
         <p>
-        <label>Enter Phone Number:</label><input type="tel" class="form-control" id="Phone"  pattern="[0-9]" required></input>
+        <label>Enter Phone Number:</label><input type="number" class="form-control" id="Phone"></input>
         </p>
         <button onClick={e => this.SaveNewContact()} class="btn btn-primary btn-lg">Save Contact</button>
          <p>{this.state.message}</p>
